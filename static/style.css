@@ -11,6 +11,8 @@
     width: 100%;
     border-collapse: collapse;
     margin: 1rem 0;
+    display: block;
+    overflow-x: auto;
 }
 
 .index-content th,
