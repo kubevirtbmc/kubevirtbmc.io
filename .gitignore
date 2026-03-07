@@ -1,0 +1,6 @@
+.hugo_build.lock
+
+public/
+bin/
+tmp/
+node_modules/

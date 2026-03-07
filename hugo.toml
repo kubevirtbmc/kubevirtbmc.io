@@ -1,0 +1,55 @@
+baseURL = 'https://kubevirtbmc.io/'
+languageCode = 'en-us'
+title = 'KubeVirtBMC'
+theme = 're-terminal'
+copyright = 'KubeVirtBMC Maintainers. Apache 2.0 Licensed.'
+
+enableRobotsTXT = true
+disableKinds = ['RSS', 'taxonomy', 'term']
+
+[pagination]
+  pagerSize = 5
+
+[params]
+  contentTypeName = 'posts'
+  themeColor = 'green'
+  showMenuItems = 3
+  fullWidthTheme = false
+  centerTheme = true
+  readingTime = false
+
+  [params.banner]
+    dismissible = true
+    text = 'Read the full documentation at docs.kubevirtbmc.io'
+    url = 'https://docs.kubevirtbmc.io/'
+
+[languages]
+  [languages.en]
+    languageName = 'English'
+    title = 'KubeVirtBMC'
+
+    [languages.en.params]
+      subtitle = 'Kubernetes-native BMC for KubeVirt virtual machines'
+      copyright = 'KubeVirtBMC Maintainers. Apache 2.0 Licensed.'
+
+      [languages.en.params.logo]
+        logoText = 'KubeVirtBMC'
+        logoHomeLink = '/'
+
+    [[languages.en.menu.main]]
+      identifier = 'docs'
+      name = 'Documentation'
+      url = 'https://docs.kubevirtbmc.io/'
+      weight = 10
+
+    [[languages.en.menu.main]]
+      identifier = 'github'
+      name = 'GitHub'
+      url = 'https://github.com/kubevirtbmc/kubevirtbmc'
+      weight = 20
+
+    [[languages.en.menu.main]]
+      identifier = 'chart'
+      name = 'Helm Chart'
+      url = 'https://github.com/kubevirtbmc/chart'
+      weight = 30
