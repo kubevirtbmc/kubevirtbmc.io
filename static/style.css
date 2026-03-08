@@ -2,26 +2,11 @@
 .index-content img {
     display: block;
     margin: 0 auto 2rem;
-    max-width: 400px;
+    max-width: min(400px, 100%);
     height: auto;
 }
 
-/* Ensure tables render cleanly */
+/* Allow table to scroll horizontally on narrow viewports */
 .index-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
-    display: block;
     overflow-x: auto;
-}
-
-.index-content th,
-.index-content td {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--accent);
-    text-align: left;
-}
-
-.index-content th {
-    font-weight: bold;
 }
