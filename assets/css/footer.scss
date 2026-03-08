@@ -41,6 +41,10 @@
 
     span {
       white-space: nowrap;
+
+      @media (max-width: $phone) {
+        white-space: normal;
+      }
     }
   }
 }
