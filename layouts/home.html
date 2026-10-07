@@ -1,0 +1,13 @@
+{{ define "main" }}
+{{- $d := hugo.Data.landing }}
+<a class="skip" href="#top">Skip to content</a>
+{{ partial "header.html" $d }}
+<main id="top">
+  {{ partial "sections/hero.html" $d }}
+  {{ partial "sections/gap.html" $d }}
+  {{ partial "sections/features.html" $d }}
+  {{ partial "sections/how.html" $d }}
+  {{ partial "sections/community.html" $d }}
+</main>
+{{ partial "footer.html" $d }}
+{{ end }}

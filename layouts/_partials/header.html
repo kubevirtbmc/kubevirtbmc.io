@@ -1,0 +1,27 @@
+<header class="masthead">
+  <div class="masthead__inner wrap">
+    <a class="brand" href="#top" aria-label="KubeVirtBMC home">
+      <img src="{{ "images/logo-mark.svg" | relURL }}" alt="KubeVirtBMC logo" width="28" height="28">
+      <span>KubeVirt<b>BMC</b></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      {{- range .nav }}
+      {{ partial "link.html" (dict "url" .url "text" .name) }}
+      {{- end }}
+    </nav>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Colour theme: system">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M10 3.5a6.5 6.5 0 0 1 0 13z"/></svg>
+    </button>
+    {{- /* Narrow screens: the same links behind a menu button. */}}
+    <details class="menu" data-menu>
+      <summary aria-label="Menu">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6.5h14M3 13.5h14"/></svg>
+      </summary>
+      <nav class="menu__panel" aria-label="Main">
+        {{- range .nav }}
+        {{ partial "link.html" (dict "url" .url "text" .name) }}
+        {{- end }}
+      </nav>
+    </details>
+  </div>
+</header>

@@ -1,0 +1,4 @@
+{{- /* A link that opens other sites in a new tab. Takes (dict "url" "text" "class"). */ -}}
+{{- $external := hasPrefix .url "http" -}}
+<a href="{{ .url }}"{{ with .class }} class="{{ . }}"{{ end }}{{ if $external }} target="_blank" rel="noopener"{{ end }}>{{ .text }}{{ if $external }}<span class="ext" aria-hidden="true">↗</span>{{ end }}</a>
+{{- /**/ -}}

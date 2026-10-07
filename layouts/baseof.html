@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{ site.Title }} · {{ hugo.Data.landing.hero.title }}</title>
+  <meta name="description" content="{{ site.Params.description }}">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f6f8fc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0f1a" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="{{ site.Title }}">
+  <meta property="og:description" content="{{ site.Params.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.BaseURL }}">
+  <meta property="og:image" content="{{ "images/og-card.png" | absURL }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="KubeVirtBMC logo with the tagline: BMC for virtual machines">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="32x32">
+  <link rel="icon" href="{{ "images/logo-mark.svg" | relURL }}" type="image/svg+xml" sizes="any">
+  {{- /* Apply a saved theme before the first paint; without one the page follows the system. */}}
+  <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+  {{- range slice "ubuntu-700" "ibm-plex-sans" }}
+  <link rel="preload" href="{{ printf "fonts/%s.woff2" . | relURL }}" as="font" type="font/woff2" crossorigin>
+  {{- end }}
+  {{- $css := resources.Get "css/site.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+</head>
+<body>
+  {{ block "main" . }}{{ end }}
+  {{ partial "scripts.html" . }}
+</body>
+</html>
