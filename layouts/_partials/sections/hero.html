@@ -1,0 +1,26 @@
+<section class="hero wrap" aria-labelledby="hero-title">
+  <div class="hero__copy">
+    <p class="eyebrow">{{ .hero.eyebrow }}</p>
+    <h1 id="hero-title">{{ .hero.title }}</h1>
+    <p class="lead">{{ .hero.lead }}</p>
+    <div class="terminal" data-copy>
+      <div class="terminal__bar">
+        <span>{{ .hero.install.label }}</span>
+        <button type="button" class="copy" data-copy-button aria-label="Copy the install commands">Copy</button>
+      </div>
+      {{ partial "code.html" .hero.install.command }}
+    </div>
+    <div class="actions">
+      {{ partial "link.html" (dict "url" .hero.primary.url "text" .hero.primary.name "class" "button button--primary") }}
+      {{ partial "link.html" (dict "url" .hero.secondary.url "text" .hero.secondary.name "class" "button") }}
+    </div>
+  </div>
+  <div class="hero__figure">
+    {{ partial "figure.html" (dict "slot" "hero" "figures" .figures) }}
+  </div>
+</section>
+<div class="specs wrap" role="list" aria-label="Key facts">
+  {{- range .specs }}
+  <div class="spec" role="listitem"><span class="spec__key">{{ .key }}</span><span class="spec__value">{{ .value }}</span></div>
+  {{- end }}
+</div>

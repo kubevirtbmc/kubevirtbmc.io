@@ -1,0 +1,17 @@
+<section class="gap wrap" id="why" aria-labelledby="gap-title">
+  <div class="gap__figure">
+    {{ partial "figure.html" (dict "slot" "gap" "figures" .figures) }}
+  </div>
+  <div class="gap__copy">
+    <p class="eyebrow">{{ .gap.eyebrow }}</p>
+    <h2 id="gap-title">{{ .gap.title }}</h2>
+    {{- range .gap.body }}
+    <p>{{ . | markdownify }}</p>
+    {{- end }}
+    <p class="tools"><span>Works with</span>
+      {{- range .gap.tools }}
+      {{ partial "link.html" (dict "url" .url "text" .name "class" "chip") }}
+      {{- end }}
+    </p>
+  </div>
+</section>

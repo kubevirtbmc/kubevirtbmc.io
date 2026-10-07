@@ -1,0 +1,7 @@
+{{- /* The kernel first, then the page script that defines hairline(), then the figures that call it. */ -}}
+<script src="{{ "vendor/hairline/kernel.js" | relURL }}" defer></script>
+{{- $js := resources.Get "js/site.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{- range hugo.Data.landing.figures }}
+<script type="module" src="{{ printf "js/figures/%s.js" .name | relURL }}"></script>
+{{- end }}

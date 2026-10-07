@@ -1,0 +1,154 @@
+# Every word on the landing page lives here. Edit this file to change the copy;
+# the templates in layouts/ only decide where it goes. Fields named `body`
+# accept inline Markdown: `code`, **bold** and [links](https://example.com).
+
+nav:
+  - name: Features
+    url: "#features"
+  - name: How it works
+    url: "#how-it-works"
+  - name: Docs
+    url: https://docs.kubevirtbmc.io/
+  - name: GitHub
+    url: https://github.com/kubevirtbmc/kubevirtbmc
+
+# Each slot names a figure in static/js/figures, and describes it for screen readers.
+figures:
+  hero:
+    name: rack
+    label: Six virtual machines in a server rack. The one under the pointer slides out on its rails and powers on.
+  gap:
+    name: link
+    label: A server's management port and a loose network cable. The plug lifts toward the port as the pointer comes near.
+
+hero:
+  eyebrow: Kubernetes operator for KubeVirt
+  title: A BMC for every virtual machine.
+  lead: >-
+    KubeVirtBMC gives each KubeVirt VM its own IPMI and Redfish endpoint.
+    Bare-metal provisioning tools power it, boot it and install it as if it
+    were a physical server.
+  install:
+    label: Install with Helm
+    command: |-
+      helm repo add kubevirtbmc https://charts.kubevirtbmc.io/
+      helm upgrade --install kubevirtbmc kubevirtbmc/kubevirtbmc \
+        --namespace kubevirtbmc-system --create-namespace
+  primary:
+    name: Get started
+    url: https://docs.kubevirtbmc.io/getting-started/
+  secondary:
+    name: View on GitHub
+    url: https://github.com/kubevirtbmc/kubevirtbmc
+
+# The strip under the hero: the numbers an operator looks for first.
+specs:
+  - key: Redfish
+    value: 80/TCP
+  - key: IPMI (opt-in)
+    value: 623/UDP
+  - key: API group
+    value: bmc.kubevirt.io/v1beta1
+  - key: License
+    value: Apache-2.0
+
+gap:
+  eyebrow: Why
+  title: Provisioners speak IPMI and Redfish. Virtual machines don't.
+  body:
+    - >-
+      Metal3, Tinkerbell and Seeder manage servers through their baseboard
+      management controller: power state, boot device, virtual media. A
+      KubeVirt VM has no BMC, so these tools cannot see it.
+    - >-
+      KubeVirtBMC plugs that gap. For every VM you point it at, the operator
+      runs a virtual BMC that answers standard IPMI and Redfish calls and
+      turns them into KubeVirt operations.
+  tools:
+    - name: Metal3
+      url: https://metal3.io/
+    - name: Tinkerbell
+      url: https://tinkerbell.org/
+    - name: Seeder
+      url: https://github.com/harvester/seeder
+
+features:
+  eyebrow: Features
+  title: What a virtual BMC answers
+  items:
+    - key: IPMI
+      title: "`ipmitool` works as-is"
+      body: Power on, power off, reset and boot device selection over IPMI v1.5 and v2.0, so both `-I lan` and `-I lanplus` work. Off by default; turn it on per VM with `spec.ipmi.enabled`.
+    - key: Redfish
+      title: A Redfish service per VM
+      body: RESTful server management that follows the DMTF Redfish specification, rooted at `/redfish/v1`.
+    - key: Virtual media
+      title: Mount an ISO remotely
+      body: Attach an installer or recovery ISO through Redfish virtual media, backed by KubeVirt hotplug volumes and CDI.
+    - key: CRD
+      title: Kubernetes-native
+      body: One `VirtualMachineBMC` resource per VM. The controller reconciles a Deployment that runs the virtual BMC, a Service in front of it, and the ServiceAccount and RoleBinding it needs.
+    - key: Provisioning
+      title: Fits existing pipelines
+      body: Anything that already speaks IPMI or Redfish can drive a KubeVirt VM, with no plugin or fork.
+
+how:
+  eyebrow: How it works
+  title: From a resource to a reachable BMC
+  steps:
+    - title: Install the operator
+      body: Deploy the controller with the Helm chart or the single install manifest.
+    - title: Point it at a VM
+      body: Create a `VirtualMachineBMC` that references a `VirtualMachine` and a `Secret` holding the BMC credentials.
+    - title: Get an endpoint
+      body: The controller rolls out a Deployment running the virtual BMC, and a Service exposing 80/TCP for Redfish, plus 623/UDP for IPMI when it is enabled.
+    - title: Provision as usual
+      body: Your provisioner talks to that Service. Power and boot requests become KubeVirt operations on the VM.
+  # Code panels beside the steps, top to bottom: the resource, then calls to it.
+  examples:
+    - file: virtualmachinebmc.yaml
+      code: |-
+        apiVersion: bmc.kubevirt.io/v1beta1
+        kind: VirtualMachineBMC
+        metadata:
+          name: test-bmc
+          namespace: default
+        spec:
+          virtualMachineRef:
+            name: testvm
+          authSecretRef:
+            name: bmc-secret
+    - file: redfish
+      code: |-
+        $ curl -s -u admin:admin123 \
+            http://testvm-virtbmc.default.svc/redfish/v1/Systems/1 \
+            | jq .PowerState
+        "On"
+    - file: ipmitool
+      note: needs spec.ipmi.enabled
+      code: |-
+        $ ipmitool -I lanplus -H testvm-virtbmc.default.svc \
+            -U admin -P admin123 power status
+        Chassis Power is on
+
+community:
+  eyebrow: Get involved
+  title: Open source, Apache 2.0 licensed
+  body: >-
+    Open issues and ask questions in the
+    [main repository](https://github.com/kubevirtbmc/kubevirtbmc/issues).
+    Pull requests are welcome in any of the project's repositories.
+  repos:
+    - name: kubevirtbmc
+      body: The operator and the virtual BMC
+      url: https://github.com/kubevirtbmc/kubevirtbmc
+    - name: chart
+      body: Helm chart for deployment
+      url: https://github.com/kubevirtbmc/chart
+    - name: docs
+      body: Source of docs.kubevirtbmc.io
+      url: https://github.com/kubevirtbmc/docs
+
+footer:
+  copyright: KubeVirtBMC Maintainers.
+  license: Apache 2.0 Licensed.

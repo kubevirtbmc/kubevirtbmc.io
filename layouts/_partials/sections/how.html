@@ -1,0 +1,21 @@
+<section class="how wrap" id="how-it-works" aria-labelledby="how-title">
+  <header class="section-head">
+    <p class="eyebrow">{{ .how.eyebrow }}</p>
+    <h2 id="how-title">{{ .how.title }}</h2>
+  </header>
+  <div class="how__grid">
+    <ol class="steps">
+      {{- range .how.steps }}
+      <li><h3>{{ .title }}</h3><p>{{ .body | markdownify }}</p></li>
+      {{- end }}
+    </ol>
+    <div class="how__code">
+      {{- range .how.examples }}
+      <div class="terminal">
+        <div class="terminal__bar"><span>{{ .file }}</span>{{ with .note }}<span class="terminal__note">{{ . }}</span>{{ end }}</div>
+        {{ partial "code.html" .code }}
+      </div>
+      {{- end }}
+    </div>
+  </div>
+</section>

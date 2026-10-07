@@ -1,0 +1,6 @@
+{{- /* An isometric figure. Takes (dict "slot" "hero" "figures" hugo.Data.landing.figures). */ -}}
+{{- $f := index .figures .slot -}}
+<figure class="figure">
+  <div class="figure__stage" data-figure="{{ $f.name }}" role="img" aria-label="{{ $f.label }}"></div>
+</figure>
+{{- /**/ -}}

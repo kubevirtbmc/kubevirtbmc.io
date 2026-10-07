@@ -1,0 +1,14 @@
+<section class="features wrap" id="features" aria-labelledby="features-title">
+  <header class="section-head">
+    <p class="eyebrow">{{ .features.eyebrow }}</p>
+    <h2 id="features-title">{{ .features.title }}</h2>
+  </header>
+  <dl class="spec-sheet">
+    {{- range .features.items }}
+    <div class="spec-sheet__row">
+      <dt>{{ .key }}</dt>
+      <dd><strong>{{ .title | markdownify }}</strong> {{ .body | markdownify }}</dd>
+    </div>
+    {{- end }}
+  </dl>
+</section>

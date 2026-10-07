@@ -9,14 +9,17 @@ on:
 permissions:
   contents: read
 
+# The Hugo release the site is built and deployed with. Use the same one
+# locally for byte-identical output (see README).
+env:
+  HUGO_VERSION: "0.166.0"
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -32,14 +35,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true
           fetch-depth: 0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: latest
-          extended: true
+          hugo-version: ${{ env.HUGO_VERSION }}
 
       - name: Build and validate HTML
         run: make test

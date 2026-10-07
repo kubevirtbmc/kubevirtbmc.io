@@ -1,0 +1,18 @@
+<section class="community wrap" id="community" aria-labelledby="community-title">
+  <div class="community__intro">
+    <p class="eyebrow">{{ .community.eyebrow }}</p>
+    <h2 id="community-title">{{ .community.title }}</h2>
+    <p>{{ .community.body | markdownify }}</p>
+  </div>
+  <ul class="repos">
+    {{- range .community.repos }}
+    <li>
+      <a href="{{ .url }}" target="_blank" rel="noopener">
+        <span class="repos__name">kubevirtbmc/<b>{{ .name }}</b></span>
+        <span class="repos__body">{{ .body }}</span>
+        <span class="ext" aria-hidden="true">↗</span>
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</section>
