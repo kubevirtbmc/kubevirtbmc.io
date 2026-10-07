@@ -12,7 +12,8 @@
   <meta property="og:description" content="{{ site.Params.description }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.BaseURL }}">
-  <link rel="icon" href="{{ "images/logo-mark.svg" | relURL }}" type="image/svg+xml">
+  <link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="32x32">
+  <link rel="icon" href="{{ "images/logo-mark.svg" | relURL }}" type="image/svg+xml" sizes="any">
   {{- /* Apply a saved theme before the first paint; without one the page follows the system. */}}
   <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
   {{- range slice "ubuntu-700" "ibm-plex-sans" }}
