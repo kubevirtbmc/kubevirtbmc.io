@@ -22,7 +22,7 @@ figures:
     label: A server's management port and a loose network cable. The plug lifts toward the port as the pointer comes near.
 
 hero:
-  eyebrow: Kubernetes operator for KubeVirt
+  eyebrow: Hardware workflows, no hardware
   title: A BMC for every virtual machine.
   lead: >-
     KubeVirtBMC gives each KubeVirt VM its own IPMI and Redfish endpoint.
