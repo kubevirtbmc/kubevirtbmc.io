@@ -111,25 +111,21 @@ how:
         apiVersion: bmc.kubevirt.io/v1beta1
         kind: VirtualMachineBMC
         metadata:
-          name: test-bmc
+          name: node-01
           namespace: default
         spec:
           virtualMachineRef:
-            name: testvm
+            name: node-01
           authSecretRef:
             name: bmc-secret
     - file: redfish
       code: |-
-        $ curl -s -u admin:admin123 \
-            http://testvm-virtbmc.default.svc/redfish/v1/Systems/1 \
-            | jq .PowerState
-        "On"
+        curl -s -u admin:password \
+            http://node-01-virtbmc.default.svc/redfish/v1/Systems/1
     - file: ipmitool
-      note: needs spec.ipmi.enabled
       code: |-
-        $ ipmitool -I lanplus -H testvm-virtbmc.default.svc \
-            -U admin -P admin123 power status
-        Chassis Power is on
+        ipmitool -I lanplus -U admin -P password \
+            -H node-01-virtbmc.default.svc power status
 
 community:
   eyebrow: Get involved
